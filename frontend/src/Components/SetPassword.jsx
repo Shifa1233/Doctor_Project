@@ -6,21 +6,19 @@ const SetPassword = () => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState('');
-    const [message, setMessage] = useState('');  // To show success message
+    const [message, setMessage] = useState('');  
     const navigate = useNavigate();
     const { token } = useParams();
 
-    // Store token in localStorage once the component is mounted or URL changes
     useEffect(() => {
         if (token) {
-            localStorage.setItem('reset_token', token);  // Store token in localStorage
+            localStorage.setItem('reset_token', token);  
         }
     }, [token]);
 
     const handlePasswordChange = async (e) => {
         e.preventDefault();
 
-        // Validate password inputs
         if (!password || !confirmPassword) {
             setError('Please fill in both fields.');
             return;
@@ -60,13 +58,11 @@ const SetPassword = () => {
 
     return (
         <div className="flex min-h-screen">
-            {/* Left Content */}
             <div className="flex-1 bg-blue-500 text-white p-8 flex flex-col justify-center">
                 <h2 className="text-4xl font-bold mb-4">Set Your New Password</h2>
                 <p className="text-xl">Please enter your new password to continue.</p>
             </div>
 
-            {/* Right Password Form */}
             <div className="flex-1 p-8">
                 <h2 className="text-3xl font-semibold mb-6">Set Password</h2>
                 {error && <p className="text-red-500 mb-4">{error}</p>}

@@ -22,13 +22,11 @@ const Navbar = () => {
   return (
     <div className="bg-blue-300 p-4">
       <div className="flex items-center justify-between">
-  
-        {/* Right side: Navbar buttons and User Icon */}
+
         <div className="flex items-center space-x-6">
             {/* <div className="flex flex-col items-center ml-6">
                 <Icon icon="fontisto:doctor" width="30" height="34" className="text-white "/>
             </div> */}
-          {/* Navbar buttons */}
           <div className="flex space-x-6">
             <button className="bg-blue-500 text-white font-bold py-2 px-4  rounded-[3vw] hover:bg-blue-600" onClick={()=>navigate("/booking")}>
               Book Appointment

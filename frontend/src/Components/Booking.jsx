@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Icon } from '@iconify/react/dist/iconify.js'
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import book from '../assets/book.avif'
 
 const getDaysInMonth = (year, month) => {
@@ -129,11 +131,11 @@ const Calendar = () => {
         }
       );
 
-      alert(`Appointment booked for ${formattedDate} at ${selectedTime}`);
+      toast.success(`Appointment booked for ${formattedDate} at ${selectedTime}`);
       setShowTimePicker(false);
       setSelectedTime("");
     } catch (error) {
-      alert("This slot is already booked!");
+      toast.error("This slot is already booked!");
       console.error("Error booking appointment:", error);
     }
   };
@@ -255,10 +257,7 @@ const Calendar = () => {
         {time}
         </button>
         ))}
-
               </div>
-
-              {/* Submit Button */}
               {selectedTime && (
                 <div className="flex justify-center mt-4">
                   <button
@@ -273,6 +272,7 @@ const Calendar = () => {
           )}
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };

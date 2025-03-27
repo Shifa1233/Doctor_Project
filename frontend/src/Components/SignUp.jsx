@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
@@ -15,12 +17,12 @@ const SignUp = () => {
 
         if (!username || !email || !password) {
             setError('Please fill in all fields');
+            toast.error('Please fill in all fields');
             return;
         }
         setError(''); 
         setLoading(true);
         try {
-            // Send POST request to register the user
             const response = await axios.post('http://127.0.0.1:8000/register/', {
                 username,
                 email,
@@ -30,25 +32,24 @@ const SignUp = () => {
             if (response.status === 201) {  
                 setError('');
                 setLoading(false);
-                alert('Registration successful');
-                navigate('/verify');  // Redirect to the login page after successful registration
+                toast.success('Registration successful!');
+                navigate('/verify'); 
             }
         } catch (err) {
             setError('Registration failed. Please try again later.');
             setLoading(false); 
+            toast.error('Registration failed. Please try again later.');
             console.error('Registration error:', err);
         }
     };
 
     return (
         <div className="flex min-h-screen">
-            {/* Left Content (optional, like welcome message) */}
             <div className="flex-1 bg-blue-500 text-white p-8 flex flex-col justify-center">
                 <h2 className="text-4xl font-bold mb-4">Welcome to Online Appointment Booking</h2>
                 <p className="text-xl">Please create an account to get started.</p>
             </div>
 
-            {/* Right Register Form */}
             <div className="flex-1 p-8">
                 <h2 className="text-3xl font-semibold mb-6">Sign Up</h2>
                 {error && <p className="text-red-500 mb-4">{error}</p>}
@@ -108,13 +109,13 @@ const SignUp = () => {
                     </button>
                 </form>
 
-                {/* Redirect to Login page */}
                 <div className="mt-4 text-center">
                     <p className="text-sm">
                         Already have an account? <a href="/" className="text-blue-500 hover:underline">Login here</a>
                     </p>
                 </div>
             </div>
+            <ToastContainer />
         </div>
     );
 };

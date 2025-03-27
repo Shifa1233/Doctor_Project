@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate , Link } from 'react-router-dom';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Verify= () => {
     const [otp, setOTP] = useState('');
@@ -17,7 +19,6 @@ const Verify= () => {
         }
 
          try {
-            // Send login request to your API
             const response = await axios.post('http://127.0.0.1:8000/verify-otp/', {
                 otp
             });
@@ -26,23 +27,21 @@ const Verify= () => {
                 localStorage.setItem('userToken', response.data.token);  // Store token if returned
                 setError('');
                 navigate('/');
-                alert('Login Successful');
+                toast.success('OTP verified successfully!');
             }
         } catch (err) {
-            setError('Invalid credentials or server error');
-            console.error('Login error:', err);
+            toast.error('Invalid OTP or server error');
+            console.error('Verify error:', err);
         }
     };
 
     return (
         <div className="flex min-h-screen">
-            {/* Left Content */}
             <div className="flex-1 bg-blue-500 text-white p-8 flex flex-col justify-center">
                 <h2 className="text-4xl font-bold mb-4">Email Verification Portal</h2>
                 <p className="text-xl">Kindly verify your email by entering the OTP code send at our registered mail.</p>
             </div>
 
-            {/* Right Login Form */}
             <div className="flex-1 p-8">
                 <h2 className="text-3xl font-semibold mb-6">Email Verification</h2>
                 {error && <p className="text-red-500 mb-4">{error}</p>}
@@ -69,6 +68,7 @@ const Verify= () => {
 
                 </form>
             </div>
+            <ToastContainer />
         </div>
     );
 };

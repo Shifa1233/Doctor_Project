@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate , Link } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css'
 import axios from 'axios';
 
 const Login= () => {
@@ -13,6 +15,7 @@ const Login= () => {
 
         if (!username || !password) {
             setError('Please fill in both fields');
+            toast.error('Please fill in both fields')
             return;
         }
 
@@ -28,28 +31,27 @@ const Login= () => {
                 localStorage.setItem('refreshToken', response.data.refresh_token);  
                 localStorage.setItem('username',response.data.username)
                 setError('');
+                toast.success('Login Successful');
                 if (username === 'Rahman') {
                     navigate('/doctor');
                 } else {
                     navigate('/home');
                 }
-                alert('Login Successful');
             }
         } catch (err) {
             setError('Invalid credentials or server error');
+            toast.error('Invalid credentials or server error');
             console.error('Login error:', err);
         }
     };
 
     return (
         <div className="flex min-h-screen">
-            {/* Left Content */}
             <div className="flex-1 bg-blue-500 text-white p-8 flex flex-col justify-center">
                 <h2 className="text-4xl font-bold mb-4">Welcome to Online Appointment Booking</h2>
                 <p className="text-xl">Book your appointment to our proffestional Dr. Shifa and get the best physiotherapy</p>
             </div>
 
-            {/* Right Login Form */}
             <div className="flex-1 p-8">
                 <h2 className="text-3xl font-semibold mb-6">Login</h2>
                 {error && <p className="text-red-500 mb-4">{error}</p>}
@@ -100,6 +102,7 @@ const Login= () => {
                     </p>
                 </div>
             </div>
+            <ToastContainer />
         </div>
     );
 };
