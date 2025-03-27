@@ -1,6 +1,5 @@
-from rest_framework import generics, permissions
+from rest_framework import generics, permissions , status
 from .models import Appointment , Profile ,PasswordResetToken
-import random
 import uuid
 from django.contrib.auth import password_validation
 from django.core.exceptions import ValidationError
@@ -250,3 +249,20 @@ class DoctorAppointments(generics.ListAPIView):
         today = timezone.now().date()
         return Appointment.objects.filter(date__gte=today)
     
+class DeleteAppointment(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def delete(self, request):
+        date = request.data.get('date')
+        time_slot = request.data.get('time_slot')
+
+        if not date or not time_slot:
+            return Response({"error": "Both 'date' and 'time_slot' are required to delete an appointment."}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            appointment = Appointment.objects.get(date=date, time_slot=time_slot, user=request.user)
+            appointment.delete()
+            return Response({"message": "Appointment successfully deleted."}, status=status.HTTP_200_OK)
+
+        except Appointment.DoesNotExist:
+            return Response({"error": "Appointment not found for this date and time."}, status=status.HTTP_404_NOT_FOUND)
