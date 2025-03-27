@@ -12,6 +12,8 @@ const SignUp = () => {
     const [loading, setLoading] = useState(false); 
     const navigate = useNavigate();
 
+    const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
     const handleRegister = async (e) => {
         e.preventDefault();
 
@@ -20,6 +22,13 @@ const SignUp = () => {
             toast.error('Please fill in all fields');
             return;
         }
+
+        if (!passwordRegex.test(password)) {
+            setError('Password must be at least 8 characters long, include 1 uppercase letter, 1 number, and 1 special character');
+            // toast.error('Password must be at least 8 characters long, include 1 uppercase letter, 1 number, and 1 special character');
+            return;
+        }
+
         setError(''); 
         setLoading(true);
         try {
