@@ -10,6 +10,7 @@ const Forget = () => {
     const [message, setMessage] = useState('');
     const [otp, setOtp] = useState(''); 
     const [showOtpField, setShowOtpField] = useState(false); 
+    const [loading, setLoading] = useState(false);  
     const navigate = useNavigate();
 
     const handleSendOtp = async (e) => {
@@ -22,6 +23,7 @@ const Forget = () => {
         }
 
         setError(''); 
+        setLoading(true); 
 
         try {
             const response = await axios.post('http://127.0.0.1:8000/forget/', { email });
@@ -37,6 +39,8 @@ const Forget = () => {
         } catch (error) {
             setError('Something went wrong. Please try again.');
             toast.error('Something went wrong. Please try again.');
+        } finally {
+            setLoading(false);  // Stop loading
         }
     };
 
@@ -69,13 +73,11 @@ const Forget = () => {
 
     return (
         <div className="flex min-h-screen">
-            {/* Left Content */}
             <div className="flex-1 bg-blue-500 text-white p-8 flex flex-col justify-center">
                 <h2 className="text-4xl font-bold mb-4">Forgot Password Portal</h2>
                 <p className="text-xl">Kindly verify your email by entering the OTP code sent to your registered email.</p>
             </div>
 
-            {/* Right Form */}
             <div className="flex-1 p-8">
                 <h2 className="text-3xl font-semibold mb-6">Forgot Password</h2>
                 {error && <p className="text-red-500 mb-4">{error}</p>}
@@ -98,12 +100,18 @@ const Forget = () => {
                     <button
                         type="submit"
                         className="w-full py-3 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-300"
+                        disabled={loading}  
                     >
-                        Send OTP
+                        {loading ? (
+                            <div className="flex justify-center items-center">
+                                <div className="w-5 h-5 border-t-2 border-blue-500 border-solid rounded-full animate-spin"></div>
+                            </div>
+                        ) : (
+                            'Send OTP'
+                        )}
                     </button>
                 </form>
 
-                {/* OTP Field - Show when OTP is sent */}
                 {showOtpField && (
                     <form onSubmit={handleOtpSubmit} className="space-y-4 mt-6">
                         <div>

@@ -14,7 +14,7 @@ const Login= () => {
         e.preventDefault();
 
         if (!username || !password) {
-            setError('Please fill in both fields');
+            // setError('Please fill in both fields');
             toast.error('Please fill in both fields')
             return;
         }
@@ -24,23 +24,27 @@ const Login= () => {
                 username,
                 password
             });
-
+            
             if (response.status === 200) {
+                console.log("4456789")
+                
                 console.log(response)
                 localStorage.setItem('authToken', response.data.access_token);  
                 localStorage.setItem('refreshToken', response.data.refresh_token);  
                 localStorage.setItem('username',response.data.username)
                 setError('');
-                toast.success('Login Successful');
+                toast.success('Login Successful'); 
                 if (username === 'Rahman') {
                     navigate('/doctor');
                 } else {
                     navigate('/home');
+                    
                 }
+                
             }
         } catch (err) {
             setError('Invalid credentials or server error');
-            toast.error('Invalid credentials or server error');
+            // toast.error('Invalid credentials or server error');
             console.error('Login error:', err);
         }
     };
