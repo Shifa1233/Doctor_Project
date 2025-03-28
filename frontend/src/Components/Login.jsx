@@ -26,8 +26,6 @@ const Login= () => {
             });
             
             if (response.status === 200) {
-                console.log("4456789")
-                
                 console.log(response)
                 localStorage.setItem('authToken', response.data.access_token);  
                 localStorage.setItem('refreshToken', response.data.refresh_token);  
@@ -43,7 +41,7 @@ const Login= () => {
                 
             }
         } catch (err) {
-            setError('Invalid credentials or server error');
+            setError('Invalid credentials');
             // toast.error('Invalid credentials or server error');
             console.error('Login error:', err);
         }
