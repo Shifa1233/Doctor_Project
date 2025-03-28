@@ -112,6 +112,12 @@ const Forget = () => {
                     </button>
                 </form>
 
+                <div className="mt-4 text-center">
+                    <p className="text-sm">
+                        Back to login? <a href="/" className="text-blue-500 hover:underline">Login here</a>
+                    </p>
+                </div>
+
                 {showOtpField && (
                     <form onSubmit={handleOtpSubmit} className="space-y-4 mt-6">
                         <div>
