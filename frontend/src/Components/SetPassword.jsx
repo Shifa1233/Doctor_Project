@@ -28,6 +28,13 @@ const SetPassword = () => {
             setError('Passwords do not match.');
             return;
         }
+
+        const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/;
+        if (!passwordRegex.test(password)) {
+            setError('Password must be at least 8 characters long, include at least one uppercase letter, one number, and one special character.');
+            return;
+        }
+        
         setError('');
 
         try {
