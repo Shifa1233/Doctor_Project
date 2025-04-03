@@ -34,7 +34,7 @@ const SetPassword = () => {
             setError('Password must be at least 8 characters long, include at least one uppercase letter, one number, and one special character.');
             return;
         }
-        
+
         setError('');
 
         try {
@@ -73,7 +73,7 @@ const SetPassword = () => {
             <div className="flex-1 p-8">
                 <h2 className="text-3xl font-semibold mb-6">Set Password</h2>
                 {error && <p className="text-red-500 mb-4">{error}</p>}
-                {message && <p className="text-green-500 mb-4">{message}</p>} {/* Success Message */}
+                {message && <p className="text-green-500 mb-4">{message}</p>} 
 
                 <form onSubmit={handlePasswordChange} className="space-y-4">
                     <div>

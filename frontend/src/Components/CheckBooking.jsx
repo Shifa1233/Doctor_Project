@@ -112,7 +112,7 @@ const BookingTable = () => {
                       className="text-red-500 hover:text-red-700"
                       onClick={() => setConfirmDelete({ show: true, bookingTime: booking.time_slot, bookingDate: booking.date })}
                     >
-                      Delete
+                      Cancel
                     </button>
                   </td>
                 </tr>
@@ -126,7 +126,7 @@ const BookingTable = () => {
       {confirmDelete.show && (
         <div className="fixed top-0 left-0 w-full h-full bg-opacity-50 flex justify-center items-center z-50">
           <div className="bg-white border-2 p-6 rounded-lg w-1/3">
-            <h3 className="text-xl text-center mb-4">Are you sure you want to delete this appointment?</h3>
+            <h3 className="text-xl text-center mb-4">Are you sure you want to cancel this appointment?</h3>
             <div className="flex justify-around">
               <button
                 className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700"
